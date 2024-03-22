@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'ContadorDePessoas',
+      theme: ThemeData(
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 58, 183, 141)),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'ContadorDePessoas'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'Informe a quantidade de pessoas pressionando os botões',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            if (_counter == 10)
+              const Text(
+                'Valor máximo Atingido, Não será possível adicionar mais!',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.blue,
+                ),
+              )
+          ],
+        ),
+      ),
+      floatingActionButton:
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        FloatingActionButton(
+          onPressed: _counter != 0 ? _decrementCounter : null,
+          tooltip: 'Decrement',
+          child: const Icon(Icons.remove),
+        ),
+        FloatingActionButton(
+          onPressed: _counter != 10 ? _incrementCounter : null,
+          tooltip: 'Increment',
+          disabledElevation: 10,
+          child: const Icon(Icons.add),
+        ),
+      ]),
+    );
+  }
+}
